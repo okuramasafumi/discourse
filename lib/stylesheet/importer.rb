@@ -110,7 +110,7 @@ module Stylesheet
     def import_color_definitions
       contents = +""
       DiscoursePluginRegistry.color_definition_stylesheets.each do |name, path|
-        contents << "// Color definitions from #{name}\n\n"
+        contents << "\n\n// Color definitions from #{name}\n\n"
         contents << File.read(path.to_s)
         contents << "\n\n"
       end
@@ -122,7 +122,7 @@ module Stylesheet
         theme = Theme.find_by_id(theme_id)
         contents << theme&.scss_variables.to_s
         Theme.list_baked_fields(resolved_ids, :common, :color_definitions).each do |field|
-          contents << "// Color definitions from #{field.theme.name}\n\n"
+          contents << "\n\n// Color definitions from #{field.theme.name}\n\n"
 
           if field.theme_id == theme.id
             contents << field.value
